@@ -16,5 +16,6 @@ exports.addGame = async (req, res) => {
 }
 
 exports.signin = (req, res) => {
+    console.log(req.body);
     res.send(req.body);
 }
