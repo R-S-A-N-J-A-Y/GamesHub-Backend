@@ -22,5 +22,9 @@ exports.signin = async (req, res) => {
     }
 
     const result = await signInValidation(user);
-    res.send(result);
+    
+    if ( !result )
+        res.status(404).send("User not found");
+    else
+        res.send(result);
 }
