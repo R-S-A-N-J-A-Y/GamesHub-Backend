@@ -1,4 +1,5 @@
-const addData = require("../controllers/DataOperations/addData");
+const addData = require("./Admin/addData");
+const signInValidation = require("./Admin/SignInValidation");
 
 exports.addGame = async (req, res) => {
     const data = {
@@ -12,10 +13,14 @@ exports.addGame = async (req, res) => {
 
     const result = await addData(data);
     res.send(result);
-    // res.send(req.body);
 }
 
-exports.signin = (req, res) => {
-    console.log(req.body);
-    res.send(req.body);
+exports.signin = async (req, res) => {
+    const user = {
+        email: req.body.email,
+        password: req.body.password
+    }
+
+    const result = await signInValidation(user);
+    res.send(result);
 }
