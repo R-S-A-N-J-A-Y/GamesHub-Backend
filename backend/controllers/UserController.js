@@ -19,7 +19,14 @@ exports.createUser = async ( req, res ) => {
     }
 }
 
+const Validate = require("./User/SignInValidation");
+
 exports.signin = async (req, res) => {
     const user = makeUser(req);
-
+    const result = await Validate(user);
+    if ( !result ){
+        res.status(404).send("User Not Exist");
+        return;
+    }
+    res.send(result);
 };
