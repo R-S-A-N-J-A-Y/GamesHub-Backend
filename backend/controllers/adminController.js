@@ -1,4 +1,4 @@
-const addData = require("./Admin/addData");
+const createGame = require("./Admin/createGame");
 const signInValidation = require("./Admin/SignInValidation");
 
 exports.addGame = async (req, res) => {
@@ -10,7 +10,12 @@ exports.addGame = async (req, res) => {
         date: new Date(req.body.date),
         platforms: req.body.platforms
     }
-    const result = await addData(data);
+
+    const result = await createGame(data);
+    if ( !result ){
+        res.status(400).send("Game Already Exist..");
+        return;
+    }
     res.send(result);
 }
 
