@@ -7,5 +7,6 @@ route.post("/signin", adminController.signin);
 route.post("/addgame", adminController.addGame);
 
 route.get("/getGameById/:id", adminController.getGameById);
+route.delete("/deleteGameById/:id", adminController.deleteGameById);
 
 module.exports = route;

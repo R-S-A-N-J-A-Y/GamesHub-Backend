@@ -3,7 +3,7 @@ const isGameExist = require("./isGameExist");
 
 const createGame = async ( game ) => {
     const res = await isGameExist(game);
-    if ( res ){
+    if ( res == null ){
         return null;
     }
     const games = new Games( game );
