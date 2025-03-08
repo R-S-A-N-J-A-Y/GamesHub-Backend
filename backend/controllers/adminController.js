@@ -39,7 +39,7 @@ exports.signin = async (req, res) => {
 exports.getGameById = async ( req, res ) => {
     const id = req.params.id;
     if ( id.length != 24 )
-        return res.status(400).send("InValid ID");
+        return res.status(400).send("Invalid ID: Id must be 24 letters, Try again");
     
     const result = await getGame(id);
     if ( !result ){
@@ -62,5 +62,5 @@ exports.updateGameById = async ( req, res ) => {
     const result = await updateGame(id, req.body);
     if ( !result )
         return res.status(400).send("Game With Specified ID is not Found.");
-    return res.send(result);
+    return res.status(200).send(result);
 }
