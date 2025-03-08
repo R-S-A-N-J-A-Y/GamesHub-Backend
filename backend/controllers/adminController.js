@@ -2,6 +2,7 @@ const createGame = require("./Admin/createGame");
 const signInValidation = require("./Admin/SignInValidation");
 const getGame = require("./Admin/getGame");
 const deleteGame = require("./Admin/deleteGame");
+const updateGame = require("./Admin/updateGame");
 
 exports.addGame = async (req, res) => {
     const data = {
@@ -37,6 +38,9 @@ exports.signin = async (req, res) => {
 
 exports.getGameById = async ( req, res ) => {
     const id = req.params.id;
+    if ( id.length != 24 )
+        return res.status(400).send("InValid ID");
+    
     const result = await getGame(id);
     if ( !result ){
         return res.status(400).send("Game With Specified ID is not Found.");
@@ -50,5 +54,13 @@ exports.deleteGameById = async ( req, res ) => {
     if ( !result ){
         return res.status(400).send("Game With Specified ID is not Found.");
     }
+    return res.send(result);
+}
+
+exports.updateGameById = async ( req, res ) => {
+    const id = req.params.id;
+    const result = await updateGame(id, req.body);
+    if ( !result )
+        return res.status(400).send("Game With Specified ID is not Found.");
     return res.send(result);
 }
