@@ -10,9 +10,9 @@ const getGameByPlatform = async (req, res, platform) => {
     if (platform === "clear"){
         return exports.getGame(req, res);
     }
-    console.log(platform);
+    // console.log(platform);
     const result = await Game.find({ platforms: platform});
-    console.log(result);
+    // console.log(result);
     res.send(result);
 };
 
@@ -21,27 +21,63 @@ const sortGameBy = async (req, res, orderBy) => {
     if ( orderBy === "clear" )
         return exports.getGame(req, res);
     const result = await Game.find().sort({[orderBy]: 1})
-    console.log(result);
+    // console.log(result);
     res.send(result);
 }
 
-//Select By Platforms and Order
-const getGameByPAS = async(req, res, orderBy, platform) => {
-    if ( orderBy === "clear" && platform === "clear" )
+// Select By Genre
+const getGameByGenre = async(req, res, genre) => {
+    if ( genre === "clear" )
         return exports.getGame(req, res);
-    else if ( orderBy === "clear" )
-        return getGameByPlatform(req, res, platform);
-    else if ( platform === "clear" )
-        return sortGameBy(req, res, orderBy);
+    const result = await Game.find({ genres: genre });
+    // console.log(result);
+    res.send(result);
+}
+
+const getGameByPO = async (req, res, platform, orderBy) => {
     const result = await Game.find({ platforms: platform }).sort({[orderBy] : 1});
     return res.send(result);
 }
 
-exports.getGameBy = async (req, res) => {
-    const {platform, orderBy} = req.query;
-    if ( platform && orderBy )
-        return getGameByPAS(req, res, orderBy, platform);
-    else if ( platform )
+const getGameByPG = async (req, res, platform, genre) => {
+    const result = await Game.find({ platforms: platform, genres: genre });
+    return res.send(result);
+}
+
+const getGameByGO = async (req, res, genre, orderBy) => {
+    const result = await Game.find({ genres: genre }).sort({[orderBy]: 1});
+    return res.send(result);
+}
+
+//Select By Platforms and Order
+const getGameByPOG = async(req, res, orderBy, platform, genre) => {
+    if ( orderBy === "clear" && platform === "clear" && genre === "clear" )
+        return exports.getGame(req, res);
+    else if (orderBy === "clear" && platform === "clear")
+        return getGameByGenre(req, res, genre);
+    else if ( orderBy === "clear" && genre === "clear" )
         return getGameByPlatform(req, res, platform);
-    return sortGameBy(req, res, orderBy);
+    else if ( platform === "clear" && orderBy === "clear" )
+        return sortGameBy(req, res, orderBy);
+    else if ( orderBy === "clear" )
+        return getGameByPG(req, res, platform, genre);
+    else if ( platform === "clear" )
+        return getGameByGO(req, res, genre, orderBy);
+    else if ( genre === "clear" )
+        return getGameByPO(req, res, platform, genre);
+    const result = await Game.find({ platforms: platform, genres: genre }).sort({[orderBy] : 1});
+    return res.send(result);
+}
+
+exports.getGameBy = async (req, res) => {
+    let {platform, orderBy, genre} = req.query;
+    console.log(platform, orderBy, genre);
+    if ( !platform )
+        platform = "clear";
+    if ( !orderBy )
+        orderBy = "clear";
+    if (!genre)
+        genre = "clear";
+    console.log(platform, orderBy, genre);
+    return getGameByPOG(req, res, orderBy, platform, genre);
 }
