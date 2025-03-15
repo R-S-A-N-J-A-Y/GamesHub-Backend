@@ -57,14 +57,14 @@ const getGameByPOG = async(req, res, orderBy, platform, genre) => {
         return getGameByGenre(req, res, genre);
     else if ( orderBy === "clear" && genre === "clear" )
         return getGameByPlatform(req, res, platform);
-    else if ( platform === "clear" && orderBy === "clear" )
+    else if ( platform === "clear" && genre === "clear" )
         return sortGameBy(req, res, orderBy);
     else if ( orderBy === "clear" )
         return getGameByPG(req, res, platform, genre);
     else if ( platform === "clear" )
         return getGameByGO(req, res, genre, orderBy);
     else if ( genre === "clear" )
-        return getGameByPO(req, res, platform, genre);
+        return getGameByPO(req, res, platform, orderBy);
     const result = await Game.find({ platforms: platform, genres: genre }).sort({[orderBy] : 1});
     return res.send(result);
 }
