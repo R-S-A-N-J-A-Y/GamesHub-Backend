@@ -71,11 +71,15 @@ const getGameByPOG = async(req, res, orderBy, platform, genre) => {
 
 exports.getGameBy = async (req, res) => {
     let {platform, orderBy, genre} = req.query;
-    console.log(platform, orderBy, genre);
     if ( !platform )
         platform = "clear";
     if ( !orderBy )
         orderBy = "clear";
+    else if(orderBy){
+        orderBy = orderBy.toLowerCase();
+        if ( orderBy === "release-date" )
+            orderBy = "date";
+    }
     if (!genre)
         genre = "clear";
     console.log(platform, orderBy, genre);
