@@ -59,7 +59,14 @@ exports.deleteGameById = async ( req, res ) => {
 
 exports.updateGameById = async ( req, res ) => {
     const id = req.params.id;
-    const result = await updateGame(id, req.body);
+    const updatedGame = {
+        name: req.body.name,
+        imageSrc: req.body.imageSrc,
+        date: req.body.releaseDate,
+        genres: req.body.genres,
+        platforms: req.body.platforms
+    }
+    const result = await updateGame(id, updatedGame);
     if ( !result )
         return res.status(400).send("Game With Specified ID is not Found.");
     return res.status(200).send(result);
