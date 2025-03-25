@@ -1,8 +1,8 @@
-const createGame = require("./Admin/createGame");
+const createGame = require("./Admin/Game/createGame");
 const signInValidation = require("./Admin/SignInValidation");
-const getGame = require("./Admin/getGame");
-const deleteGame = require("./Admin/deleteGame");
-const updateGame = require("./Admin/updateGame");
+const getGame = require("./Admin/Game/getGame");
+const deleteGame = require("./Admin/Game/deleteGame");
+const updateGame = require("./Admin/Game/updateGame");
 
 exports.addGame = async (req, res) => {
     const data = {

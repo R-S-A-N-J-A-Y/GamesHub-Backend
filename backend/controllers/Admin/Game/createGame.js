@@ -1,4 +1,4 @@
-const Games = require("../../models/gameModel");
+const Games = require("../../../models/gameModel");
 const isGameExist = require("./isGameExist");
 
 const createGame = async ( game ) => {

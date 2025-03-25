@@ -1,4 +1,4 @@
-const Game = require("../../models/gameModel");
+const Game = require("../../../models/gameModel");
 
 const deleteGame = async ( id ) => {
     let res = await Game.findByIdAndDelete(id);

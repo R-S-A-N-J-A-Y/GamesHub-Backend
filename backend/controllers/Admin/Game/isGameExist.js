@@ -1,4 +1,4 @@
-const Game = require("../../models/gameModel");
+const Game = require("../../../models/gameModel");
 
 const isGameExist = async ( game ) => {
     const res = await Game.findOne({_id: game});

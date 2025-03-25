@@ -1,4 +1,4 @@
-const Game = require("../../models/gameModel")
+const Game = require("../../../models/gameModel")
 
 const updateGameById = async (id, gameData) => {
     const res = await Game.findByIdAndUpdate(id, gameData, {new: true});
