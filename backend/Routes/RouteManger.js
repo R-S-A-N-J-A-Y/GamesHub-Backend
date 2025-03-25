@@ -7,6 +7,7 @@ const PController = require("../controllers/platformController");
 route.get("/getgame", Controller.getGame);
 route.get("/getgameby", Controller.getGameBy);
 
+route.get("/getplatform", PController.getAllPlatforms);
 route.post( "/platform", PController.addPlatform );
 
 route.use(["/login/admin", "/admin"], require("./adminRoutes"));
